@@ -92,7 +92,7 @@ sleep 3
 curl -X POST -H "Content-Type: application/json" -d '{
   "name": "Prometheus",
   "type": "prometheus",
-  "url": "http://192.168.50.5",
+  "url": "http://192.168.50.5:9090",
   "access": "direct",
   "basicAuth": false
 }' http://admin:admin@localhost:3000/api/datasources
