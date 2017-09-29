@@ -100,13 +100,13 @@ curl -X POST -H "Content-Type: application/json" -d '{
 
 # add examples dashboards
 curl -X POST -H "Content-Type: application/json" -d \
-	@/vagrant/host-stats_rev1.json \
+	@/vagrant/grafana/host-stats_rev1.json \
 	http://admin:admin@localhost:3000/api/dashboards/db
 
 curl -X POST -H "Content-Type: application/json" -d \
-	@/vagrant/node-exporter-full_rev7.json \
+	@/vagrant/grafana/node-exporter-full_rev7.json \
 	http://admin:admin@localhost:3000/api/dashboards/db
 
 curl -X POST -H "Content-Type: application/json" -d \
-	@/vagrant/node-exporter-single-server_rev7.json \
+	@/vagrant/grafana/node-exporter-single-server_rev7.json \
 	http://admin:admin@localhost:3000/api/dashboards/db
