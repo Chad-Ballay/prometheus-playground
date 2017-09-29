@@ -85,3 +85,14 @@ apt-get update -qq
 apt-get install -y grafana > /dev/null 2>&1
 systemctl start grafana-server
 systemctl enable grafana-server > /dev/null 2>&1
+
+# just in case
+sleep 3
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  "name": "Prometheus",
+  "type": "prometheus",
+  "url": "http://192.168.50.5",
+  "access": "direct",
+  "basicAuth": false
+}' http://admin:admin@localhost:3000/api/datasources
