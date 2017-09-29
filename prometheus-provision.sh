@@ -89,6 +89,7 @@ systemctl enable grafana-server > /dev/null 2>&1
 # just in case
 sleep 3
 
+# add data source
 curl -X POST -H "Content-Type: application/json" -d '{
   "name": "Prometheus",
   "type": "prometheus",
@@ -96,3 +97,16 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "access": "direct",
   "basicAuth": false
 }' http://admin:admin@localhost:3000/api/datasources
+
+# add examples dashboards
+curl -X POST -H "Content-Type: application/json" -d \
+	@/vagrant/host-stats_rev1.json \
+	http://admin:admin@localhost:3000/api/dashboards/db
+
+curl -X POST -H "Content-Type: application/json" -d \
+	@/vagrant/node-exporter-full_rev7.json \
+	http://admin:admin@localhost:3000/api/dashboards/db
+
+curl -X POST -H "Content-Type: application/json" -d \
+	@/vagrant/node-exporter-single-server_rev7.json \
+	http://admin:admin@localhost:3000/api/dashboards/db

@@ -1,2 +1,1 @@
 - nginx ssl reverse proxy
-- create example dashboard via API - http://docs.grafana.org/http_api/dashboard/#dashboard-from-json-file
