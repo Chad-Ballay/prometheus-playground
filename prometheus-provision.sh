@@ -31,19 +31,39 @@ cp prometheus-1.7.2.linux-amd64/promtool /usr/local/bin/
 chown prometheus:prometheus /usr/local/bin/prometheus
 chown prometheus:prometheus /usr/local/bin/promtool
 
+# alertmanager
+echo "Alertmanager installing..."
+echo "407e0311689207b385fb1252f36d3c3119ae9a315e3eba205aaa69d576434ed7 alertmanager-0.9.1.linux-amd64.tar.gz" > alertmanager-0.9.1.linux-amd64.tar.gz.sha256
+wget --quiet https://github.com/prometheus/alertmanager/releases/download/v0.9.1/alertmanager-0.9.1.linux-amd64.tar.gz
+
+CHECKSUM_STATE=$(echo -n "$(sha256sum -c alertmanager-0.9.1.linux-amd64.tar.gz.sha256)" | tail -c 2)
+if [ "$CHECKSUM_STATE" != "OK"  ]
+then
+	echo "Warning! Checksum does not match!"
+	exit 1
+else
+	tar xvfz alertmanager-0.9.1.linux-amd64.tar.gz > /dev/null 2>&1
+fi
+
+# copy binary prometheus files
+cp alertmanager-0.9.1.linux-amd64/alertmanager /usr/local/bin/
+cp alertmanager-0.9.1.linux-amd64.tar.gz/amtool /usr/local/bin/
+
+chown prometheus:prometheus /usr/local/bin/alertmanager
+chown prometheus:prometheus /usr/local/bin/amtool
+
 mkdir /etc/prometheus
 mkdir /var/lib/prometheus
+mkdir /var/lib/prometheus/alertmanager
 
-chown prometheus:prometheus /etc/prometheus
-chown prometheus:prometheus /var/lib/prometheus
+chown -R prometheus:prometheus /var/lib/prometheus
 
-cp /vagrant/prometheus/prometheus.yml /etc/prometheus/prometheus.yml
-cp /vagrant/prometheus/prometheus.rules /etc/prometheus/prometheus.rules
+cp /vagrant/prometheus/* /etc/prometheus/
 
-chown prometheus:prometheus /etc/prometheus/prometheus.yml
-chown prometheus:prometheus /etc/prometheus/prometheus.rules
+chown -R prometheus:prometheus /etc/prometheus/
 
 cp /vagrant/systemd/prometheus.service /etc/systemd/system/prometheus.service
+cp /vagrant/systemd/alertmanager.service /etc/systemd/system/alertmanager.service
 systemctl daemon-reload
 
 # node_exporter

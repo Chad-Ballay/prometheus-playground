@@ -1,7 +1,6 @@
-sudo cp /vagrant/prometheus/prometheus.yml /etc/prometheus/prometheus.yml
-sudo cp /vagrant/prometheus/prometheus.rules /etc/prometheus/prometheus.rules
+sudo cp /vagrant/prometheus/* /etc/prometheus/
 
-sudo chown prometheus:prometheus /etc/prometheus/prometheus.yml
-sudo chown prometheus:prometheus /etc/prometheus/prometheus.rules
+sudo chown -R prometheus:prometheus /etc/prometheus
 
 sudo service prometheus start
+sudo service alertmanager start

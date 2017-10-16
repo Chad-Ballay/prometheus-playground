@@ -1,0 +1,14 @@
+route:
+  receiver: 'slack'
+  group_by: ['alertname', 'service']
+  group_wait: 5s
+  group_interval: 5s
+  repeat_interval: 3h
+
+receivers:
+- name: 'slack'
+  slack_configs:
+  # change the api_url with yours
+  - api_url: 'https://hooks.slack.com/services/...'
+    send_resolved: true
+    channel: '#test'

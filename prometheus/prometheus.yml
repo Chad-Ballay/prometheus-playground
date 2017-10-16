@@ -1,8 +1,10 @@
 global:
   scrape_interval:     15s
+  evaluation_interval: 5s
 
 rule_files:
     - 'prometheus.rules'
+    - 'alert.rules'
 
 scrape_configs:
   - job_name: 'prometheus'
@@ -16,3 +18,10 @@ scrape_configs:
       - targets: ['localhost:9100', '192.168.50.6:9100']
         labels:
           group: 'production'
+
+alerting:
+  alertmanagers:
+  - scheme: http
+    static_configs:
+    - targets:
+      - "127.0.0.1:9093"
