@@ -47,7 +47,7 @@ fi
 
 # copy binary prometheus files
 cp alertmanager-0.9.1.linux-amd64/alertmanager /usr/local/bin/
-cp alertmanager-0.9.1.linux-amd64.tar.gz/amtool /usr/local/bin/
+cp alertmanager-0.9.1.linux-amd64/amtool /usr/local/bin/
 
 chown prometheus:prometheus /usr/local/bin/alertmanager
 chown prometheus:prometheus /usr/local/bin/amtool
