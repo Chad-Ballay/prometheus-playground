@@ -9,7 +9,7 @@ Group=prometheus
 Type=simple
 Restart=always
 RestartSec=3
-ExecStart=/usr/local/bin/alertmanager -config.file /etc/prometheus/alertmanager.yml -storage.path /var/lib/prometheus/alertmanager
+ExecStart=/usr/local/bin/alertmanager --config.file /etc/prometheus/alertmanager.yml --storage.path /var/lib/prometheus_alertmanager
 
 [Install]
 WantedBy=multi-user.target

@@ -9,7 +9,7 @@ Group=prometheus
 Type=simple
 Restart=always
 RestartSec=3
-ExecStart=/usr/local/bin/prometheus -config.file /etc/prometheus/prometheus.yml -storage.local.path /var/lib/prometheus/
+ExecStart=/usr/local/bin/prometheus --config.file /etc/prometheus/prometheus.yml --storage.tsdb.path /var/lib/prometheus
 
 [Install]
 WantedBy=multi-user.target

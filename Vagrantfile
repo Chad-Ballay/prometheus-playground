@@ -1,31 +1,42 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant.configure("2") do |config|
+Vagrant.configure('2') do |config|
   config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
-  config.vm.define "prometheus" do |vb|
-    vb.vm.box = "debian/stretch64"
-    vb.vm.hostname = "prometheus"
-    vb.vm.network "private_network", ip: '192.168.50.5'
-    vb.vm.provider "virtualbox" do |vb|
+  config.vm.define 'prometheus' do |vb|
+    vb.vm.box = 'omu/debian-stable-server'
+    vb.vm.hostname = 'prometheus'
+    vb.vm.network 'private_network', ip: '192.168.50.5'
+    vb.vm.provider 'virtualbox' do |vb|
       vb.gui = false
-      vb.memory = "2048"
+      vb.memory = '2048'
     end
 
-    vb.vm.provision "shell", path: "prometheus-provision.sh"
-    vb.vm.provision "shell", path: "prometheus-start.sh", run: "always", privileged: false
+    vb.vm.provision 'shell', path: 'prometheus-provision.sh'
   end
 
-  config.vm.define "server1" do |vb|
-    vb.vm.box = "debian/stretch64"
-    vb.vm.hostname = "server1"
-    vb.vm.network "private_network", ip: '192.168.50.6'
-    vb.vm.provider "virtualbox" do |vb|
+  config.vm.define 'server1' do |vb|
+    vb.vm.box = 'omu/debian-stable-server'
+    vb.vm.hostname = 'server1'
+    vb.vm.network 'private_network', ip: '192.168.50.6'
+    vb.vm.provider 'virtualbox' do |vb|
       vb.gui = false
-      vb.memory = "512"
+      vb.memory = '512'
     end
 
-    vb.vm.provision "shell", path: "node_exporter-provision.sh"
+    vb.vm.provision 'shell', path: 'node_exporter-provision.sh'
+  end
+
+  config.vm.define 'server2' do |vb|
+    vb.vm.box = 'omu/debian-stable-server'
+    vb.vm.hostname = 'server2'
+    vb.vm.network 'private_network', ip: '192.168.50.7'
+    vb.vm.provider 'virtualbox' do |vb|
+      vb.gui = false
+      vb.memory = '512'
+    end
+
+    vb.vm.provision 'shell', path: 'node_exporter-provision.sh'
   end
 end
