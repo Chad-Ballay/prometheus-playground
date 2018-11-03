@@ -1,0 +1,5 @@
+groups:
+- name: prometheus.rules
+  rules:
+  - record: job_service:rpc_durations_seconds_count:avg_rate5m
+    expr: avg by(job, service) (rate(rpc_durations_seconds_count[5m]))
