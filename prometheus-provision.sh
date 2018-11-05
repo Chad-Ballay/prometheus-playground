@@ -67,7 +67,9 @@ ln -s /vagrant/systemd/alertmanager.service /etc/systemd/system/alertmanager.ser
 systemctl daemon-reload
 
 systemctl start prometheus
+systemctl enable prometheus > /dev/null 2>&1
 systemctl start alertmanager
+systemctl enable alertmanager > /dev/null 2>&1
 
 # node_exporter
 echo "node_exporter installing..."
